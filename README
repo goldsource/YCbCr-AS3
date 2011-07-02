@@ -1,0 +1,44 @@
+YCbCr Utility
+
+Use this Class to convert RGB Pixel to Component YCbCr Color Space vice versa. 
+ 
+Examples: 
+var ycbcrPixel:uint = YCbCr.pixelFromRGB(0x005599);
+var ycbcrVector:Vector.<uint> = YCbCr.vectorFromRGB(0x005599);
+var rgbPixel:uint = YCbCr.rgbFromPixel(ycbcrPixel);
+var rgbPixelFromVector:uint = YCbCr.rgbFromVector(ycbcrVector);
+ 
+Algorithm
+  
+Converting RGB to YCbCr
+
+Y    0     .299  .581  0.114     R
+Cb = 128 + -.169 -.331 .500   * G
+Cr   128   .500  -.419 -0.081    B
+ 
+var y:uint = ( .299 * r + .587 * g  +  0.114 * b) + 0;
+var cb:uint = ( -.169 * r + -.331 * g +  0.500 * b) + 128;
+var cr:uint = ( .500 * r + -.419 * g +  -0.081 * b) + 128;
+  
+Converting YCbCr to RGB
+
+R   1 0     1.4     y
+G = 1 -.343 -.711 * cb-128
+B   1 1.765 0       cr-128
+
+var r:uint = 1 * y +  0 * (cb-128)   +  1.4 * (cr-128);
+var g:uint = 1 * y +  -.343 * (cb-128)  +  -.711 * (cr-128);
+var b:uint = 1 * y +  1.765 * (cb-128)  +  0 * (cr-128);
+   
+For more info visit: 
+http://en.wikipedia.org/wiki/YCbCr 
+http://www.equasys.de/colorconversion.html
+ 
+License
+based on The MIT License (MIT)
+http://www.opensource.org/licenses/mit-license.php
+ 
+Copyright (c) 2011 Nicholas Schreiber 
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
